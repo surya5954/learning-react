@@ -1,26 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+// import logo from './logo.svg';
 import './App.css';
+import Person from './Person/Person';
+// import { useState } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    persons: [
+      { name: "Surya", age: 28 },
+      { name: "Neelam", age: 24 },
+      { name: "Sachin", age: 25 }
+    ],
+    showPersons: false
+  }
+
+  nameChangeHandler = (event) => {
+    this.setState({
+      persons: [
+        { name: event.target.value, age: 28 },
+        { name: "Neelam", age: 24 },
+        { name: "Sachin", age: 25 }
+      ]
+    })
+  }
+
+  toggleNameHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons: !doesShow}); 
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>I am react app</h1>
+        <p>This is really intresting !!!</p>
+        <button onClick={this.toggleNameHandler}>Toggle Person</button>
+        {
+          this.state.showPersons ?
+            <div>
+              {
+                this.state.persons.map(person =>{
+                  return <Person 
+                    name= {person.name} 
+                    age= {person.age}
+                    />
+                })
+              }
+            </div> 
+            : null
+        }
+
+      </div>
+    );
+  }
 }
 
 export default App;
